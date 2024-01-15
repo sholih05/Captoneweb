@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>SI-SAWI- Sistem informasi Deteksi Sawi</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="static/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Jost:wght@500;600;700&display=swap" rel="stylesheet"> 
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="static/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="static/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-xxl position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                <a href="" class="navbar-brand p-0">
+                    <h1 class="m-0">SI-SAWI</h1>
+                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto py-0">
+                        {% if session['level'] == 'User' : %}
+                        <a href="{{ url_for('main') }}" class="nav-item nav-link active">Beranda</a>
+                        <!-- <a href="{{ url_for('about') }}" class="nav-item nav-link">About</a> -->
+                        <a href="{{ url_for('classification') }}" class="nav-item nav-link">Classification</a>
+                        <a href="{{ url_for('chatbot') }}" class="nav-item nav-link">Chatbot</a>
+                        <a href="{{ url_for('layanan') }}" class="nav-item nav-link">Feedback</a>
+                        {% else :%}
+                        <a href="{{ url_for('detection_history') }}" class="nav-item nav-link">Riwayat Pengguna</a> 
+                        {% endif %}
+                                
+           
+                        <!-- <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="team.html" class="dropdown-item">Our Team</a>
+                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                                <a href="404.html" class="dropdown-item">404 Page</a>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a> -->
+                    </div>
+                    <a href="{{ url_for('logout') }}" class="btn rounded-pill py-2 px-4 ms-3 d-none d-lg-block">
+                        <i class="fas fa-user me-2"></i> Logout
+                      </a>
+                      
+                </div>
+            </nav>
+
+            <div class="container-xxl bg-primary hero-header">
+                <div class="container px-lg-5">
+                    <div class="row g-5 align-items-end">
+                        <div class="col-lg-6 text-center text-lg-start">
+                            <h1 class="text-white mb-4">
+                                <span class="typing-animation">Hai {{ username }}!</span>
+                            </h1>
+                            <p class="text-white pb-3 animated slideInDown">Selamat datang kembali di platform inovatif kami. Kami senang melihat Anda kembali untuk merawat tanaman sawi Anda. Dengan kecerdasan buatan dan solusi terdepan, kami tetap siap melindungi tanaman Anda dari hama. Bersama-sama, mari kita pastikan setiap tanaman mendapatkan perhatian terbaiknya.
+                                </p>
+                            <!-- <a href="" class="btn btn-secondary py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">Kenali penyakit Tanamanmu!</a> -->
+                            <a href="{{ url_for('classification') }}" class="btn btn-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Mulai Deteksi</a>
+                        </div>
+                        <div class="col-lg-6 text-center text-lg-start">
+                            <img class="img-fluid animated zoomIn" src="static/img/SI-PADI.png" alt="Deteksi Hama Tanaman Sawi">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        <!-- Navbar & Hero End -->
+
+
+     
+
+
+     
+
+<!-- Berita Start -->
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container py-5 px-lg-5">
+        <div class="text-center mb-4">
+            <p class="section-title text-secondary justify-content-center"><span></span>Berita Terkini<span></span></p>
+            <h1 class="text-center mb-5 wow fadeInDown">Mengatasi Tantangan Gagal Panen Sawi</h1>
+        </div>
+
+        <div class="row g-4">
+            <!-- Berita 1 -->
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.2s">
+                <img class="img-fluid rounded w-100" src="static/img/pakcoy.jpg" alt="Gagal Panen Sawi">
+            </div>
+            <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.2s">
+                <p class="fs-5">Pertanian sawi dihadapi tantangan serius dengan gagal panen yang signifikan. Cuaca ekstrem, penyakit tanaman, dan masalah teknis menyebabkan penurunan hasil. Kami berkomitmen menyediakan solusi terbaik melalui teknologi deteksi hama dan konsultasi. Upaya kami mendukung pertanian sawi dan membantu petani mengatasi tantangan yang dihadapi.</p>
+                <p class="fs-5"></p>
+            </div>
+
+            <!-- Berita 2 -->
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.4s">
+                <img class="img-fluid rounded w-100" src="static/img/p.jpg" alt="Diskusi Pertanian Sawi">
+            </div>
+            <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.4s">
+                <p class="fs-5">Para petani dan pihak terkait diundang bergabung dalam diskusi terbuka. Solusi untuk meningkatkan hasil panen dan menjaga keberlanjutan pertanian sawi menjadi fokus utama.</p>
+                <p class="fs-5"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Berita End -->
+
+   <!-- Projects Start -->
+   <div class="container-xxl py-5">
+    <div class="container py-5 px-lg-5">
+        <div class="text-center mb-4 wow fadeInUp" data-wow-delay="0.1s">
+            <p class="section-title text-secondary justify-content-center"><span></span>Penawaran Kami<span></span></p>
+            <h1 class="mb-5">Jelajahi Ragam Layanan</h1>
+        </div>
+
+        <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="col-12 text-center">
+                <ul class="list-inline mb-5" id="portfolio-flters">
+                    <li class="mx-2 active" data-filter="*">Semua Layanan</li>
+                    <li class="mx-2" data-filter=".first">Classification</li>
+                    <li class="mx-2" data-filter=".second">Chatbot</li>
+                    <li class="mx-2" data-filter=".third">Analisis Sentimen</li>
+                   
+                </ul>
+            </div>
+        </div>
+
+        <div class="row g-4 portfolio-container">
+            <!-- Fitur Deteksi Hama Tanaman -->
+            <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
+                <div class="rounded overflow-hidden">
+                    <div class="position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="static/img/ai(1).jpg" alt="Deteksi Hama Tanaman">
+                        <div class="portfolio-overlay">
+                            <a class="btn btn-square btn-outline-light mx-1" href="static/img/ai(1).jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-outline-light mx-1" href="{{ url_for('classification') }}"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                    <div class="bg-light p-4">
+                        <p class="text-primary fw-medium mb-2">Machine learning</p>
+                        <h5 class="lh-base mb-0">Teknologi canggih untuk mendeteksi Hama Sawi.</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fitur Layanan Chatbot -->
+            <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
+                <div class="rounded overflow-hidden">
+                    <div class="position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="static/img/cc.jpg" alt="Layanan Chatbot">
+                        <div class="portfolio-overlay">
+                            <a class="btn btn-square btn-outline-light mx-1" href="static/img/cc.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-outline-light mx-1" href="{{ url_for('chatbot') }}"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                    <div class="bg-light p-4">
+                        <p class="text-primary fw-medium mb-2">GreenGuard Assistant</p>
+                        <h5 class="lh-base mb-0">Chatbot untuk pertanyaan pengendalian Hama sawi.</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fitur Analisis Sentimen -->
+            <div class="col-lg-4 col-md-6 portfolio-item third wow fadeInUp" data-wow-delay="0.5s">
+                <div class="rounded overflow-hidden">
+                    <div class="position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="static/img/ana (2).jpg" alt="Analisis Sentimen">
+                        <div class="portfolio-overlay">
+                            <a class="btn btn-square btn-outline-light mx-1" href="static/img/ana (2).jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-outline-light mx-1" href="{{ url_for('layanan') }}"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                    <div class="bg-light p-4">
+                        <p class="text-primary fw-medium mb-2">Analisis Sentimen</p>
+                        <h5 class="lh-base mb-0">Sentimen pengguna terhadap Aplikasi Plantsnap.</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+        
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-primary text-light footer wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5 px-lg-5">
+                <div class="row g-5">
+                    <div class="col-md-6 col-lg-3">
+                        <h5 class="section-title text-white mb-4">Alamat</h5>
+                        <p>
+                            <i class="bi bi-geo-alt-fill me-2"></i>
+                            <a href="https://www.google.com/maps?q=123+Jalan,+Kota+New+York,+Amerika+Serikat" class="text-light" target="_blank">
+                                Margadana, Kota Tegal, Politeknik Harapan Bersama
+                            </a>
+                        </p>
+                        <p>
+                            <i class="bi bi-telephone-fill me-2"></i>089666463314
+                        </p>
+                        <p>
+                            <i class="bi bi-envelope-fill me-2"></i>
+                            <a href="mailto:capstn@gmail.com" class="text-light">capstn@gmail.com</a>
+                        </p>
+                    </div>
+                    
+                    
+                    <div class="col-md-6 col-lg-3">
+                    <h5 class="section-title text-white mb-4">Kontak</h5>
+                    <div class="mb-3">
+                        <a class="btn btn-outline-light rounded-pill social-btn" href="https://www.instagram.com/riyanbayu22/" target="_blank">
+                            <i class="fab fa-instagram me-2"></i>Instagram
+                        </a>
+                    </div>
+                    <div class="mb-3">
+                        <a class="btn btn-outline-light rounded-pill social-btn" href="https://www.facebook.com/riyanbayu22/" target="_blank">
+                            <i class="fab fa-facebook me-2"></i>Facebook
+                        </a>
+                    </div>
+                    <div>
+                        <a class="btn btn-outline-light rounded-pill social-btn" href="https://www.youtube.com/@mediadakwahulamanu4519" target="_blank">
+                            <i class="fab fa-youtube me-2"></i>Youtube
+                        </a>
+                    </div>
+                </div>
+
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <h5 class="section-title text-white mb-4">Info Terkini</h5>
+                        <p>
+                            Hubungi kami untuk kendala atau pembaruan terkini seputar deteksi hama pada tanaman sawi, layanan chatbot , dan analisis sentimen aplikasi pertanian.</p>
+                        <div class="position-relative mt-3">
+                            <a href="https://wa.me/089666463314" class="btn btn-success btn-sm rounded-pill shadow">
+                                <i class="fab fa-whatsapp me-1"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                  
+                    
+                    
+                    
+            <div class="container px-lg-5">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; <a class="text-light border-bottom" href="#">Sistem informasi Deteksi Sawi</a>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <div class="footer-menu">
+                                <a class="text-light" href="{{ url_for('main') }}">Beranda</a>
+                                <a class="text-light" href="{{ url_for('chatbot') }}">Bantuan</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-secondary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/lib/wow/wow.min.js"></script>
+    <script src="static/lib/easing/easing.min.js"></script>
+    <script src="static/lib/waypoints/waypoints.min.js"></script>
+    <script src="static/lib/counterup/counterup.min.js"></script>
+    <script src="static/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="static/lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="static/lib/lightbox/js/lightbox.min.js"></script>
+
+    <!-- Template Javascript -->
+    
+    </script>
+    <script src="static/js/main.js"></script>
+   
+</body>
+
+</html>

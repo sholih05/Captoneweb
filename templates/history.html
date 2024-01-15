@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histori Deteksi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .pagination li {
+            margin-right: 10px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Histori Deteksi</h1>
+    <table id="listingTable">
+        <tr>
+            <th>ID</th>
+            <th>Tanggal</th>
+            <th>Username</th>
+            <th>Prediksi</th>
+            <th>Keyakinan</th>
+            <!-- Tambahkan kolom lain sesuai kebutuhan -->
+        </tr>
+        {% for entry in history_list %}
+        <tr>
+            <td>{{ entry.id }}</td>
+            <td>{{ entry.tanggal }}</td>
+            <td>{{ entry.username }}</td>
+            <td>{{ entry.prediction }}</td>
+            <td>{{ entry.confidence }}</td>
+            <!-- Tambahkan kolom lain sesuai kebutuhan -->
+        </tr>
+        {% endfor %}
+    </table>
+
+    <ul class="pagination">
+        <li><a href="javascript:void(0);" id="btn_prev" onclick="prevPage()">Sebelumnya</a></li>
+        <li><a href="javascript:void(0);" id="page"></a></li>
+        <li><a href="javascript:void(0);" id="btn_next" onclick="nextPage()">Selanjutnya</a></li>
+    </ul>
+
+    <script>
+        var current_page = 1;
+        var records_per_page = 50;
+        var table_rows = document.getElementById("listingTable").rows;
+        var total_records = table_rows.length - 1; // Exclude the header row
+    
+        function prevPage() {
+            if (current_page > 1) {
+                current_page--;
+                changePage(current_page);
+            }
+        }
+    
+        function nextPage() {
+            if (current_page < numPages()) {
+                current_page++;
+                changePage(current_page);
+            }
+        }
+    
+        function changePage(page) {
+            var btn_next = document.getElementById("btn_next");
+            var btn_prev = document.getElementById("btn_prev");
+            var page_span = document.getElementById("page");
+    
+            // Validate page
+            if (page < 1) page = 1;
+            if (page > numPages()) page = numPages();
+    
+            var start = (page - 1) * records_per_page + 1;
+            var end = Math.min(start + records_per_page - 1, total_records);
+    
+            for (var i = 1; i <= total_records; i++) {
+                table_rows[i].style.display = (i >= start && i <= end) ? "" : "none";
+            }
+    
+            page_span.innerHTML = page + "/" + numPages();
+    
+            btn_prev.style.visibility = (page === 1) ? "hidden" : "visible";
+            btn_next.style.visibility = (page === numPages()) ? "hidden" : "visible";
+        }
+    
+        function numPages() {
+            return Math.ceil(total_records / records_per_page);
+        }
+    
+        window.onload = function () {
+            changePage(current_page);
+        };
+    </script>
+</body>
+
+</html>

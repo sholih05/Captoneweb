@@ -1,0 +1,65 @@
+/* styles.css */
+
+/* Bagian Form Review */
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+form {
+  margin-top: 20px;
+}
+
+/* Bagian Hasil Analisis Sentimen */
+.hasil {
+  margin-top: 20px;
+}
+
+.border-success {
+  border-color: #28a745 !important;
+}
+
+/* Bagian Progress Bar Analisis Sentimen */
+.progressbar {
+  margin-top: 20px;
+}
+
+/* Bagian Review Terbaru */
+.card-body {
+  padding: 1.25rem;
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* Menambahkan spasi pada Review Terbaru */
+.container mt-5 {
+  margin-top: 50px;
+}
+
+/* Menyesuaikan ukuran teks untuk tampilan yang lebih besar */
+.fs-1 {
+  font-size: 2rem;
+}
+
+.btn-success {
+  font-size: 1rem;
+}
+
+.form-control {
+  font-size: 1rem;
+}
+
+/* Memberikan warna latar belakang pada button */
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
